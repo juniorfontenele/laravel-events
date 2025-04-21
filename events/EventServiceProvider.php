@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace JuniorFontenele\LaravelEvents;
 
+use App\Listeners\SendEventsToRabbitMQ;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Schedule;
@@ -18,18 +19,11 @@ use JuniorFontenele\LaravelEvents\Listeners\WriteEventsToDatabase;
 use JuniorFontenele\LaravelEvents\Listeners\WriteEventsToLog;
 use JuniorFontenele\LaravelEvents\Models\EventRegistry;
 
-class LaravelEventsServiceProvider extends ServiceProvider
+class EventServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
         $this->registerCommands();
-
-        $this->mergeConfigFrom(
-            __DIR__ . '/../config/events.php',
-            'events'
-        );
-
-        $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
     }
 
     public function boot(): void
@@ -37,14 +31,6 @@ class LaravelEventsServiceProvider extends ServiceProvider
         $this->setupEventsAliases();
         $this->setupEventsListeners();
         $this->setupEventsScheduler();
-
-        $this->publishes([
-            __DIR__ . '/../config/events.php' => config_path('events.php'),
-        ], 'config');
-
-        $this->publishes([
-            __DIR__ . '/../../database/migrations' => database_path('migrations'),
-        ], 'migrations');
     }
 
     protected function registerCommands(): void
@@ -71,6 +57,8 @@ class LaravelEventsServiceProvider extends ServiceProvider
     {
         Event::listen('App\\Events\\*', WriteEventsToLog::class);
         Event::listen('App\\Events\\*', WriteEventsToDatabase::class);
+
+        Event::listen('App\\Events\\*', SendEventsToRabbitMQ::class);
     }
 
     protected function setupEventsScheduler(): void
