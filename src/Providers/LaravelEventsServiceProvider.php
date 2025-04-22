@@ -40,11 +40,11 @@ class LaravelEventsServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__ . '/../config/events.php' => config_path('events.php'),
-        ], 'config');
+        ], 'laravel-events-config');
 
         $this->publishes([
             __DIR__ . '/../../database/migrations' => database_path('migrations'),
-        ], 'migrations');
+        ], 'laravel-events-migrations');
     }
 
     protected function registerCommands(): void
