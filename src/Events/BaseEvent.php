@@ -101,10 +101,16 @@ abstract class BaseEvent
     /** @return array<string, mixed> */
     public function getFullContext(): array
     {
-        $requestContext = [
-            'trace_id' => session()->get('trace_id'),
-            'request_id' => session()->get('request_id'),
-        ];
+        $requestContext = [];
+
+        if (session()->has('trace_id')) {
+            $requestContext['trace_id'] = session()->get('trace_id');
+        }
+
+        if (session()->has('request_id')) {
+            $requestContext['request_id'] = session()->get('request_id');
+        }
+
         $subject = $this->getSubject();
         $causer = $this->getCauser();
         $context = array_merge($requestContext, $this->getBaseContext());

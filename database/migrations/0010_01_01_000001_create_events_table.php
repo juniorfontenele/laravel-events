@@ -13,8 +13,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('event_registry', function (Blueprint $table) {
-            $table->defaultCharset();
+        $tablePrefix = config('events.table_prefix', 'laravel_events_');
+
+        Schema::create($tablePrefix . 'event_registry', function (Blueprint $table) {
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_0900_ai_ci';
+
             $table->id();
             $table->string('name');
             $table->string('className')->unique();
@@ -26,8 +30,10 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('events', function (Blueprint $table) {
-            $table->defaultCharset();
+        Schema::create($tablePrefix . 'events', function (Blueprint $table) {
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_0900_ai_ci';
+
             $table->id();
             $table->string('name');
             $table->unsignedBigInteger('event_id')->nullable()->index();
@@ -51,7 +57,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('event_registry');
-        Schema::dropIfExists('events');
+        $tablePrefix = config('events.table_prefix', 'laravel_events_');
+
+        Schema::dropIfExists($tablePrefix . 'event_registry');
+        Schema::dropIfExists($tablePrefix . 'events');
     }
 };

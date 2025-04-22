@@ -40,4 +40,14 @@ class SystemMakeEventCommand extends EventMakeCommand
 
         return $stub;
     }
+
+    /**
+     * Get the stub file for the generator.
+     *
+     * @return string
+     */
+    protected function getStub()
+    {
+        return __DIR__ . '/../../../stubs/event.stub';
+    }
 }

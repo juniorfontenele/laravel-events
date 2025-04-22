@@ -3,6 +3,8 @@
 declare(strict_types = 1);
 
 return [
+    'table_prefix' => env('EVENTS_TABLE_PREFIX', 'laravel_events_'),
+
     'max_days' => 180,
     'rate-limit' => [
         'enabled' => env('EVENTS_RATE_LIMIT_ENABLED', true),

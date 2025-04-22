@@ -36,6 +36,11 @@ class Event extends Model
         ];
     }
 
+    public function getTable(): string
+    {
+        return config('events.table_prefix', 'laravel_events_') . 'events';
+    }
+
     /** @return MorphTo<Model, $this> */
     public function subject(): MorphTo
     {

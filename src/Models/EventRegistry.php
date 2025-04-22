@@ -53,6 +53,11 @@ class EventRegistry extends Model
         ];
     }
 
+    public function getTable(): string
+    {
+        return config('events.table_prefix', 'laravel_events_') . 'event_registry';
+    }
+
     /** @return HasMany<Event, $this> */
     public function events(): HasMany
     {

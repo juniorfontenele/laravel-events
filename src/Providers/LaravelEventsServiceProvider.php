@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace JuniorFontenele\LaravelEvents;
+namespace JuniorFontenele\LaravelEvents\Providers;
 
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\Event;
@@ -25,7 +25,7 @@ class LaravelEventsServiceProvider extends ServiceProvider
         $this->registerCommands();
 
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/events.php',
+            __DIR__ . '/../../config/events.php',
             'events'
         );
 
