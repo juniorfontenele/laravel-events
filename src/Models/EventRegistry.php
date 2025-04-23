@@ -4,8 +4,10 @@ declare(strict_types = 1);
 
 namespace JuniorFontenele\LaravelEvents\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use JuniorFontenele\LaravelEvents\Database\Factories\EventRegistryFactory;
 use JuniorFontenele\LaravelEvents\Enums\EventLevel;
 use JuniorFontenele\LaravelEvents\Enums\EventType;
 
@@ -21,6 +23,8 @@ use JuniorFontenele\LaravelEvents\Enums\EventType;
  */
 class EventRegistry extends Model
 {
+    use HasFactory;
+
     protected $table = 'event_registry';
 
     protected $fillable = [
@@ -33,6 +37,11 @@ class EventRegistry extends Model
         'shouldLog',
         'shouldWriteToDatabase',
     ];
+
+    protected static function newFactory(): \Illuminate\Database\Eloquent\Factories\Factory
+    {
+        return EventRegistryFactory::new();
+    }
 
     protected static function booted()
     {
