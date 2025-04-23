@@ -26,3 +26,4 @@ testbench.yaml          export-ignore
 /CHANGELOG.md           export-ignore
 /pint.json              export-ignore
 /rector.php             export-ignore
+/package.json           export-ignore
