@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace JuniorFontenele\LaravelEvents\Console\Commands;
 
-use JuniorFontenele\LaravelEvents\Models\Event;
 use Illuminate\Console\Command;
+use JuniorFontenele\LaravelEvents\Models\Event;
 
 class ClearOldEventsCommand extends Command
 {
